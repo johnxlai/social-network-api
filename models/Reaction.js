@@ -9,8 +9,7 @@ const reactionSchema = new Schema(
     reactionBody: {
       type: String,
       required: true,
-      // 280 character maximum
-      // maxlength
+      maxlength: 280,
     },
     userName: {
       type: String,
@@ -18,12 +17,9 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now(),
-      // default: Date.now,
+      default: Date.now,
       // Use a getter method to format the timestamp on query
-      // get() {
-      //   return;
-      // },
+      get: () => {},
     },
   },
   { timestamps: true }
