@@ -2,11 +2,13 @@ const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
 module.exports = {
+  // Grab all thoughts
   getAllThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
+  // Get single thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
@@ -17,7 +19,13 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  createNewThought(req, res) {},
+  // Create new thought
+  createNewThought(req, res) {
+    Thought.create(req.body)
+      .then((thought) => res.json(thought))
+      .catch((err) => res.status(500).json(err));
+  },
+  //Update existing thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.courseId },
@@ -31,6 +39,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // Remove existing thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId }).then((thought) =>
       !thought
