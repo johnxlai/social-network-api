@@ -41,8 +41,19 @@ const userSchema = new Schema(
   }
 );
 
+// let error;
+// try {
+//   await user.validate();
+// } catch (err) {
+//   error = err;
+// }
+// assert.ok(error);
+// assert.equal(error.errors['name'].message, 'Oops!');
+// assert.equal(error.errors['email'].message, 'Email validation failed');
+//mongoosejs.com/docs/validation.html
+
 //Create a virtual property 'friendCount` that retrieves the length of the user's friends array field on query
-userSchema.virtual('friendCount').get(function () {
+https: userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
 

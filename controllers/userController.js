@@ -25,6 +25,7 @@ module.exports = {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => {
+        console.log(err);
         return res.status(500).json(err);
       });
   },
@@ -54,7 +55,7 @@ module.exports = {
       .then(() => {
         res.json({ message: 'User deleted!' });
       })
-      .catch((err = res.status(500).json(err)));
+      .catch((err) => res.status(500).json(err));
   },
   //   addFriend,
   addFriend(req, res) {},
