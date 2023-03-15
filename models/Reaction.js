@@ -22,6 +22,11 @@ const reactionSchema = new Schema(
       get: () => {},
     },
   },
+  {
+    toJSON: {
+      getters: true,
+    },
+  },
   { timestamps: true }
 );
 
