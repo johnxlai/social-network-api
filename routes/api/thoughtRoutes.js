@@ -9,13 +9,12 @@ const {
 
 //grab all thoughts
 //api/thoughts
-router.route('/').get(getAllThoughts);
+router.route('/').get(getAllThoughts).post(createNewThought);
 
 //api/thoughts/:thoughtId
 router
   .route('/:thoughtId')
   .get(getSingleThought)
-  .post(createNewThought)
   .put(updateThought)
   .delete(deleteThought);
 
