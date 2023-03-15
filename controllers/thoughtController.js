@@ -70,7 +70,8 @@ module.exports = {
   addReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.params.reactionsId } }
+      // $addToSet: { thoughts: thought._id }
+      { $addToSet: { reactions: reaction._id } }
     )
       .then((thought) => {
         !thought
