@@ -13,8 +13,6 @@ router
   .put(updateThought)
   .delete(deleteThought);
 
-
-router.route(/:thoughtId/reactions).put(updateThought);
-
+router.route('/:thoughtId/reactions').put(updateThought);
 
 module.exports = router;
