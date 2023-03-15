@@ -56,4 +56,8 @@ module.exports = {
       })
       .catch((err = res.status(500).json(err)));
   },
+  //   addFriend,
+  addFriend(req, res) {},
+  //   deleteFriend;
+  deleteFriend(req, res) {},
 };

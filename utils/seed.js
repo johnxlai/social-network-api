@@ -22,13 +22,21 @@ connection.once('open', async () => {
       thoughtText: 'Well, nice',
       userName: 'Lucia',
     },
+    {
+      thoughtText: 'I love to gamble, nice',
+      userName: 'Al',
+    },
+    {
+      thoughtText: 'Gamble all day everyday',
+      userName: 'Sam',
+    },
   ];
 
   // Add Thoughts to the collection and await the results
   await Thought.collection.insertMany(thoughts);
 
   // Add Users to the collection and await the results
-  await User.collection.insertOne([
+  await User.collection.insertMany([
     {
       userName: 'Amiko',
       email: 'amiko@gmail.com',
@@ -48,6 +56,10 @@ connection.once('open', async () => {
     {
       userName: 'Dre',
       email: 'dre@gmail.com',
+    },
+    {
+      userName: 'Al',
+      email: 'al@gmail.com',
     },
   ]);
 
