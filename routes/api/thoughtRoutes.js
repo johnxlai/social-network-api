@@ -7,10 +7,14 @@ router.route('/').get(getAllThoughts);
 
 //api/thoughts/:thoughtId
 router
-  .route('/:thoughtID')
+  .route('/:thoughtId')
   .get(getSingleThought)
-  .post(creatNewThought)
+  .post(createNewThought)
   .put(updateThought)
   .delete(deleteThought);
+
+
+router.route(/:thoughtId/reactions).put(updateThought);
+
 
 module.exports = router;
