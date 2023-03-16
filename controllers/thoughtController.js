@@ -71,16 +71,20 @@ module.exports = {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       // $addToSet: { thoughts: thought._id }
-      { $addToSet: { reactions: reactionId._id } }
+      { $addToSet: { reactions: req.body } }
       //  { $addToSet: { friends: req.params.friendsId } }
     )
       .then((thought) => {
         console.log(thought.reactions);
+
         !thought
           ? res.status(404).json({ message: 'No thought with this id!' })
           : res.json(thought);
       })
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   //   deleteReaction;
   deleteReaction(req, res) {
