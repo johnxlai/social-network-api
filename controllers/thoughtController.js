@@ -71,9 +71,11 @@ module.exports = {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       // $addToSet: { thoughts: thought._id }
-      { $addToSet: { reactions: req.params.reactionsId } }
+      { $addToSet: { reactions: reactionId._id } }
+      //  { $addToSet: { friends: req.params.friendsId } }
     )
       .then((thought) => {
+        console.log(thought.reactions);
         !thought
           ? res.status(404).json({ message: 'No thought with this id!' })
           : res.json(thought);
