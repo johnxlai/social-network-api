@@ -1,5 +1,3 @@
-const { ObjectId } = require('mongoose').Types;
-const { json } = require('express');
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -24,22 +22,16 @@ module.exports = {
   async createNewThought(req, res) {
     try {
       const newThought = await Thought.create(req.body);
-      //.then((thought) => {
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
         { $addToSet: { thoughts: newThought._id } }
       );
-      //.then((user) => {
       !user
         ? res.status(404).json({ message: 'No user with this id!' })
         : res.json(user);
     } catch (err) {
       res.status(500).json(err);
     }
-    //})
-    //.catch((err) => res.status(500).json(err));
-    //})
-    //.catch((err) => res.status(500).json(err));
   },
   //Update existing thought
   updateThought(req, res) {
