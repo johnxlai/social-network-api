@@ -1,4 +1,4 @@
-// const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -84,9 +84,10 @@ module.exports = {
   },
   //   deleteReaction;
   deleteReaction(req, res) {
-    Thought.findOneAndUpdate(
+    console.log(req.params);
+    Thought.findOneAndDelete(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: req.params.reactionsId } }
+      { $pull: { reactions: req.params.reactionId } }
     )
       .then((user) => {
         !user
