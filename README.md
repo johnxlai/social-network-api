@@ -44,7 +44,7 @@ As a social media startup, I want an api for my social network that uses a NoSQL
 ![Screenshot](./screenshot/social-media-api.png)
 
 ## WalkThrough Video
-https://drive.google.com/file/d/1HkWZpaus21CihF2IdR5y9smeT49Goivv/view
+https://drive.google.com/file/d/1BwHqmqMS99K9W_to3I6-bt_E5ZC0Sw_E/view
 
 ## Repo
 https://github.com/johnxlai/social-network-api
