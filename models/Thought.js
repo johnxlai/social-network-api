@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
+const dayjs = require('dayjs');
 
 //Schema to create a thought model
 const thoughtSchema = new Schema(
@@ -14,9 +15,13 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
       // Use a getter method to format the timestamp on query
-      // get: () => {
-      //   dayjs(Date.now);
-      // },
+      get: (createdDate) => {
+        try {
+          return dayjs(createdDate).format('DD/MM/YYYY');
+        } catch (err) {
+          console.log(err);
+        }
+      },
     },
     userName: {
       type: String,

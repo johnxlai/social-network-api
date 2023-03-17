@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
+const { json } = require('express');
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -20,21 +21,25 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Create new thought
-  createNewThought(req, res) {
-    Thought.create(req.body)
-      .then((thought) => {
-        User.findOneAndUpdate(
-          { _id: req.body.userId },
-          { $addToSet: { thoughts: thought._id } }
-        )
-          .then((user) => {
-            !user
-              ? res.status(404).json({ message: 'No user with this id!' })
-              : res.json(thought);
-          })
-          .catch((err) => res.status(500).json(err));
-      })
-      .catch((err) => res.status(500).json(err));
+  async createNewThought(req, res) {
+    try {
+      const newThought = await Thought.create(req.body);
+      //.then((thought) => {
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $addToSet: { thoughts: newThought._id } }
+      );
+      //.then((user) => {
+      !user
+        ? res.status(404).json({ message: 'No user with this id!' })
+        : res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+    //})
+    //.catch((err) => res.status(500).json(err));
+    //})
+    //.catch((err) => res.status(500).json(err));
   },
   //Update existing thought
   updateThought(req, res) {
@@ -67,39 +72,31 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   //   addReaction
-  addReaction(req, res) {
-    Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.body } }
-    )
-      .then((thought) => {
-        !thought
-          ? res.status(404).json({ message: 'No thought with this id!' })
-          : res.json(thought);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+  async addReaction(req, res) {
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $addToSet: { reactions: req.body } }
+      );
+      !thought
+        ? res.status(404).json({ message: 'No thought with this id!' })
+        : res.json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   },
   //   deleteReaction;
-  deleteReaction(req, res) {
-    console.log(req.params);
-    Thought.findOneAndDelete({ _id: req.params.thoughtId })
-      .then((thought) => {
-        return Thought.findOneAndUpdate(
-          { thought: req.params.thoughtId },
-          { $pull: { reactions: req.params.reactionId } }
-        );
-      })
-      .then((user) => {
-        !user
-          ? res.status(404).json({ message: 'No reaction with this id!' })
-          : res.json(user);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+  async deleteReaction(req, res) {
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } }
+      );
+      !thought
+        ? res.status(404).json({ message: 'No thought with this id!' })
+        : res.json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   },
 };
